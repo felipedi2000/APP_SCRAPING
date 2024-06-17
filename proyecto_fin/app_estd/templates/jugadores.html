@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+
+  .custom-select .selected {
+      background-color: lightgreen; /* Cambiar el color de fondo de la opción seleccionada */
+  }
+  form {
+      border: 1px solid;
+      bordar-colors: Black;
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 10px;
+      font-family: 'Arial Black', 'Impact', sans-serif;
+      background-color: #f7f7f7;
+  }
+
+  #precioDesde{
+    width: 140px;
+  }
+
+  #precioHasta{
+    width: 140px;
+  }
+
+  select.form-select option:checked {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+select.form-select option:first-child {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#containerTabla {
+  max-height: 420px; 
+  overflow-y: auto;
+  border: 1px solid;
+  border-colors: Black;
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  font-family: 'Arial';
+  background-color: #f7f7f7;
+}
+#tablaJugadores tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.7);
+  cursor: pointer;
+  transform:scale(1.01);
+  transition: 0.1s;
+}
+
+#contenedorJugador{
+  border: 1px solid;
+  border-colors: Black;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: #f7f7f7;
+}
+</style>
+  
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-5">
+          <!-- Columna izquierda con el formulario y la tabla -->
+          <form id="jugadorBusquedaForm">
+            <div class="d-flex justify-content-center ">
+                <h3>Busca tu jugador!</h3>
+            </div>
+            <div class="d-flex justify-content-start p-3">
+                <div class="w-45 me-4">
+                    <label for="nombre" class="form-label me-2">Nombre</label>
+                    <input type="text" class="form-control" id="jugador" placeholder="Nombre jugador" maxlength="25">
+                </div>
+                <div class="w-30 me-4">
+                    <label for="nombre" class="form-label me-2">Equipo</label>
+                    <select class="form-select flex-grow-1 me-4" aria-label="Default select example" id="equipo">
+                      <option selected>Elija un equipo</option>
+                      <option value="America de Cali">América de Cali</option>
+                      <option value="Deportes Tolima">Deportes Tolima</option>
+                      <option value="Deportivo La Equidad">Deportivo La Equidad</option>
+                      <option value="Independiente Medellin">Independiente Medellín</option>
+                      <option value="Rionegro Aguilas Doradas">Rionegro Águilas Doradas</option>
+                      <option value="Millonarios">Millonarios</option>
+                      <option value="Junior Barranquilla">Junior Barranquilla</option>
+                      <option value="Once Caldas">Once Caldas</option>
+                      <option value="Deportivo Pasto">Deportivo Pasto</option>
+                      <option value="Envigado FC">Envigado FC</option>
+                      <option value="Atletico Bucaramanga">Atlético Bucaramanga</option>
+                      <option value="Union Magdalena">Unión Magdalena</option>
+                      <option value="Jaguares de Cordoba">Jaguares de Córdoba</option>
+                      <option value="Atletico Nacional">Atlético Nacional</option>
+                      <option value="Independiente Santa Fe">Independiente Santa Fe</option>
+                      <option value="Atletico Huila">Atlético Huila</option>
+                      <option value="Deportivo Cali">Deportivo Cali</option>
+                      <option value="Boyaca Chico FC">Boyacá Chicó FC</option>
+                      <option value="Alianza Petrolera">Alianza Petrolera</option>
+                      <option value="Deportivo Pereira">Deportivo Pereira</option>
+                    </select>
+                </div>
+                <div class="w-30 me-4">
+                    <label for="nombre" class="form-label me-2">Posición</label>
+                    <select class="form-select flex-grow-1" aria-label="Default select example" id="posicion">
+                        <option selected>Elija posición</option>
+                        <option value="Mediocentro ofensivo">Mediocentro ofensivo</option>
+                        <option value="Portero">Portero</option>
+                        <option value="Delantero centro">Delantero centro</option>
+                        <option value="Pivote">Pivote</option>
+                        <option value="Defensa central">Defensa central</option>
+                        <option value="Extremo izquierdo">Extremo izquierdo</option>
+                        <option value="Extremo derecho">Extremo derecho</option>
+                        <option value="Lateral izquierdo">Lateral izquierdo</option>
+                        <option value="Mediocentro">Mediocentro</option>
+                        <option value="Lateral derecho">Lateral derecho</option>
+                        <option value="Mediapunta">Mediapunta</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start align-items-center p-3">
+              <label for="precio" class="form-label me-2">Precio desde:</label>
+              <input type="number" class="form-control me-2" id="precioDesde" placeholder="valor" maxlength="15">
+              <label for="hasta" class="form-label me-2">&#8364. hasta:</label>
+              <input type="number" class="form-control me-2" id="precioHasta" placeholder="valor" maxlength="15">
+              <label for="hasta" class="form-label me-2">&#8364.</label>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-outline-primary w-50">Buscar</button>
+            </div>
+          </form>
+          <div id="containerTabla">
+              <table class="table table-striped" id="tablaJugadores">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Posición</th>
+                  <th scope="col">Equipos</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Nacionalidad</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Edison felipe leon vega</td>
+                  <td>Mediapunta</td>
+                  <td>Rionegro aguilas doradas</td>
+                  <td>9000000</td>
+                  <td>Aregentino</td>
+                </tr>
+            </table>
+      </div>
+      </div>
+      <div class="col-7">
+          <div class="container-fluid" id="contenedorJugador">
+              {% include "jugadorDefault.html" %}
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
