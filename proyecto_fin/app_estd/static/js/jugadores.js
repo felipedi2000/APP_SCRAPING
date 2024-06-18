@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function cargarContenido(contenedor, url,id) {
+    function cargarContenido(contenedor, url, id) {
         var xhr = new XMLHttpRequest();
         let urlConMensaje = url + '?id=' + encodeURIComponent(id);
         xhr.onreadystatechange = function() {

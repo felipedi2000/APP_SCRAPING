@@ -55,37 +55,37 @@
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">person</span>
                     <strong class="mx-2"> Nombre:</strong>
-                    ------
+                    {{jugador.Name}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">flag_circle</span>
                     <strong class="mx-2"> Nacionalidad: </strong>
-                    ------
+                    {{jugador.Nationality}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">circle</span>
                     <strong class="mx-2"> Edad:</strong>
-                    ------
+                    {{jugador.Age}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">groups</span>
                     <strong class="mx-2"> Equipo: </strong>
-                    ------
+                    {{jugador.team}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">tag</span>
                     <strong class="mx-2">Número: </strong>
-                    ------
+                    {{jugador.Number}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">euro</span>
                     <strong class="mx-2">Precio: </strong>
-                    ------
+                    {{jugador.MarkeValue}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined small-icon">radar</span>
                     <strong class="mx-2">Posición:</strong>
-                    ------
+                    {{jugador.Position}}
                 </li>
             </ul> 
         </div> 
@@ -99,40 +99,34 @@
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined">score</span>
                     <strong class="mx-2"> Goles:</strong>
-                    ------
+                    {{jugador.goals}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined">style</span>
                     <strong class="mx-2"> Amarillas: </strong>
-                    ------
+                    {{jugador.yellowCards}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined">style</span>
                     <strong class="mx-2"> Rojas:</strong>
-                    ------
+                    {{jugador.redCards}}
                 </li>
             </ul> 
         </div>
         <div class="col-6">
             <ul class="list-unstyled" id="estadisticasGeneralesJugador_2">
                 <li class="d-flex justify-content-start align-items-center mb-1">
-                    <span class="material-symbols-outlined">tactic</span>
-                    <strong class="mx-2"> Partidos Jugados:</strong>
-                    ------
-                </li>
-                <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined">hourglass_bottom</span>
                     <strong class="mx-2"> Minutos Jugados: </strong>
-                    ------
+                    {{jugador.minutesPlayed}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined">directions_run</span>
                     <strong class="mx-2"> Asistencias:</strong>
-                    ------
+                    {{jugador.assists}}
                 </li>
             </ul>
         </div>
-        
     </div>
     <div class="container row mx-0 mt-2 mb-2">
         <div class="text-center">
@@ -143,12 +137,12 @@
                 <li class="d-flex justify-content-start align-items-center mb-1">
                   <span class="material-symbols-outlined">visibility</span>
                   <strong class="mx-2"> Intercepciones:</strong>
-                  ------
+                  {{jugador.interceptions}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
-                  <span class="material-symbols-outlined">water_damage</span>
-                  <strong class="mx-2"> Porterías a cero:</strong>
-                  ------
+                    <span class="material-symbols-outlined">layers_clear</span>
+                    <strong class="mx-2"> Despejes:</strong>
+                    {{jugador.clearances}}
                 </li>
             </ul>
         </div>
@@ -157,12 +151,12 @@
                 <li class="d-flex justify-content-start align-items-center mb-1">
                   <span class="material-symbols-outlined">unfold_more</span>
                   <strong class="mx-2"> Balones largos precisos:</strong>
-                  ------
+                  {{jugador.accurateLongBalls}}
                 </li>
                 <li class="d-flex justify-content-start align-items-center mb-1">
                     <span class="material-symbols-outlined">swap_horiz</span>
-                    <strong class="mx-2"> Pases precisos en campo rival:</strong>
-                    ------
+                    <strong class="mx-2"> Porcentaje de pases precisos:</strong>
+                    {{jugador.accuratePassesPercentage}}
                 </li>
             </ul>
         </div>

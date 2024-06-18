@@ -145,7 +145,7 @@ select.form-select option:first-child {
               <tbody>
                   {% for jugador in jugadores %}
                       <tr>
-                          <th scope="row">{{ forloop.counter }}</th>
+                          <th scope="row">{{ jugador.id }}</th>
                           <td>{{ jugador.Name }}</td>
                           <td>{{ jugador.Position }}</td>
                           <td>{{ jugador.team }}</td>
@@ -154,9 +154,9 @@ select.form-select option:first-child {
                       </tr>
                   {% endfor %}
               </tbody>
-            </table>
-      </div>
-      </div>
+          </table>
+          </div>
+        </div>
       <div class="col-6">
           <div class="container-fluid" id="contenedorJugador">
               {% include "jugadorDefault.html" %}
