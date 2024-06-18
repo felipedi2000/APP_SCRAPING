@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import pymongo   #importar pymongo
+from pymongo import MongoClient
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,6 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+APPEND_SLASH = False
 
 # Application definition
 
@@ -75,12 +78,12 @@ WSGI_APPLICATION = 'proyecto_fin.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -118,9 +121,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/static/'
+STATIC_URL = '/tatic/'
 
 # Lista de directorios de archivos estáticos (CSS, JavaScript, Imágenes)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'app_estd', 'static'),
 ]
+
+# # Configura la conexión a MongoDB usando pymongo
+# MONGO_DB = {
+#     'host': 'localhost',            # Cambia 'localhost' por la dirección de tu servidor MongoDB
+#     'port': 27017,                  # Puerto por defecto de MongoDB
+#     'db_name': 'bdjugadores',   # Nombre de la base de datos que quieres usar
+# }
+
+# # Crea una función para conectar a MongoDB usando pymongo
+# def get_mongo_client():
+#     client = pymongo.MongoClient(
+#         host=MONGO_DB['host'],
+#         port=MONGO_DB['port'],
+#         authSource=MONGO_DB['db_name']  # Autenticación en la base de datos especificada
+#     )
+#     return client[MONGO_DB['db_name']]  # Devuelve la conexión a la base de datos
+
+# # Conecta a la base de datos MongoDB
+# mongodb_conn = get_mongo_client()
+
+# # Puedes verificar la conexión imprimiendo los nombres de las bases de datos
+# print(mongodb_conn.list_database_names())

@@ -64,7 +64,7 @@ select.form-select option:first-child {
   
 <div class="container-fluid">
   <div class="row">
-      <div class="col-5">
+      <div class="col-6">
           <!-- Columna izquierda con el formulario y la tabla -->
           <form id="jugadorBusquedaForm">
             <div class="d-flex justify-content-center ">
@@ -131,31 +131,33 @@ select.form-select option:first-child {
             </div>
           </form>
           <div id="containerTabla">
-              <table class="table table-striped" id="tablaJugadores">
+            <table class="table table-striped" id="tablaJugadores">
               <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Posición</th>
-                  <th scope="col">Equipos</th>
-                  <th scope="col">Precio</th>
-                  <th scope="col">Nacionalidad</th>
-                </tr>
+                  <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Nombre</th>
+                      <th scope="col">Posición</th>
+                      <th scope="col">Equipo</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Nacionalidad</th>
+                  </tr>
               </thead>
               <tbody>
-              <tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Edison felipe leon vega</td>
-                  <td>Mediapunta</td>
-                  <td>Rionegro aguilas doradas</td>
-                  <td>9000000</td>
-                  <td>Aregentino</td>
-                </tr>
+                  {% for jugador in jugadores %}
+                      <tr>
+                          <th scope="row">{{ forloop.counter }}</th>
+                          <td>{{ jugador.Name }}</td>
+                          <td>{{ jugador.Position }}</td>
+                          <td>{{ jugador.team }}</td>
+                          <td>{{ jugador.MarkeValue }}</td>
+                          <td>{{ jugador.Nationality }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
             </table>
       </div>
       </div>
-      <div class="col-7">
+      <div class="col-6">
           <div class="container-fluid" id="contenedorJugador">
               {% include "jugadorDefault.html" %}
           </div>
