@@ -1,14 +1,16 @@
 from django.shortcuts import render
+from .models import jugadores_collection
 
 # Create your views here.
 def ver_home(request):
     return render(request,"home.html")
 
-
 def ver_jugadores(request):
-
-
-    return render(request,"jugadores.html")
+    jugadores = list(jugadores_collection.find({}, {
+        "Name": 1, "Position": 1, "team": 1, "MarkeValue": 1, "Nationality": 1, "_id": 0
+    }))
+    print(f"Colección:", jugadores)
+    return render(request, "jugadores.html", {'jugadores': jugadores})
 
 def ver_nosotros(request):
     return render(request,"nosotros.html")
@@ -17,7 +19,8 @@ def ver_nosotros(request):
 
 def defensa_central(request):
     # trate todas las estadisticas posisiocn sea defensa central
-    
+    # id = request.GET.get('id')
+    # print(f"id: {id}")
     return render(request, 'jd_defensa_central.html')
 
 def delantero_centro(request):
