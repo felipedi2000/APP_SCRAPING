@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from bson import ObjectId
 from .models import jugadores_collection
 
 # Create your views here.
@@ -7,7 +8,7 @@ def ver_home(request):
 
 def ver_jugadores(request):
     jugadores = list(jugadores_collection.find({}, {
-        "Name": 1, "Position": 1, "team": 1, "MarkeValue": 1, "Nationality": 1, "_id": 0
+        "Name": 1, "Position": 1, "team": 1, "MarkeValue": 1, "Nationality": 1, "id": 1
     }))
     return render(request, "jugadores.html", {'jugadores': jugadores})
 
@@ -19,14 +20,19 @@ def ver_nosotros(request):
 def defensa_central(request):
     id = request.GET.get('id', '')
     print("Mensaje recibido:", id)
-    
-    return render(request, 'jd_defensa_central.html')
+    jugador_id = int(id)
+    jugador = jugadores_collection.find_one({"id": jugador_id},{
+        "Name": 1, "Nationality": 1, "Age": 1, "team": 1, "Number": 1, "MarkeValue": 1, "Position": 1, "goals": 1, "yellowCards": 1, "redCards": 1, "minutesPlayed": 1, "assists": 1,"interceptions": 1,"accuratePassesPercentage": 1,"aerialDuelsWon": 1,"accurateLongBalls": 1, "dribbledPast": 1
+    })
+    print(f"jugador:{jugador}")
+    return render(request, 'jd_defensa_central.html',{'jugador': jugador})
 
 
 def delantero_centro(request):
     id = request.GET.get('id', '')
     # recibir los datos de id y insertarlos en el html
-    #print("Mensaje recibido:", id)
+    # name = request.GET.get('name', '')
+    print("Mensaje recibido:", id)
     return render(request, 'jd_delantero_centro.html')
 
 def extremo_derecho(request):
