@@ -30,8 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-APPEND_SLASH = False
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -121,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_URL = '/tatic/'
+STATIC_URL = '/static/'
 
 # Lista de directorios de archivos estáticos (CSS, JavaScript, Imágenes)
 STATICFILES_DIRS = [
