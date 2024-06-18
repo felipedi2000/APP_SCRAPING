@@ -39,8 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function cargarContenido(contenedor, url, id) {
+    function cargarContenido(contenedor, url,id) {
         var xhr = new XMLHttpRequest();
+        let urlConMensaje = url + '?id=' + encodeURIComponent(id);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status == 200) {
@@ -51,15 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         };
-        xhr.open('GET', url, true);
+        xhr.open('GET', urlConMensaje, true);
         xhr.send();
-
-        // if (id !== undefined) {
-        //     url += `?id=${id}`;
-        // }
-    
-        // xhr.open('GET', url, true);
-        // xhr.send();
     }
     
     const tabla = document.getElementById('tablaJugadores');
@@ -69,36 +63,45 @@ document.addEventListener('DOMContentLoaded', function () {
             var datosFila = Array.from(fila.children).map(td => td.textContent); // los datos de una fila en un array
             console.log(datosFila[0]," ",datosFila[1]);
             let id = datosFila[0];
-            let nombre = datosFila[1];
             let contenedor = document.getElementById('contenedorJugador');
-            if(datosFila[2].toLowerCase() =="defensa central"){
-
-                cargarContenido(contenedor,'verJugadores/defensa', id);
-                
-                // aquiva lo de actualiza las estadisticas
-                
-                
-            } else if(datosFila[2].toLowerCase() =="delantero centro"){
-                cargarContenido(contenedor,'verJugadores/delantero', id);
-            } else if(datosFila[2].toLowerCase() == "extremo derecho"){
-                cargarContenido(contenedor,'verJugadores/extremoDer', id);
-            } else if(datosFila[2].toLowerCase() == "extremo izquierdo"){
-                cargarContenido(contenedor,'verJugadores/extremoIzq', id);
-            } else if (datosFila[2].toLowerCase() == "lateral derecho"){
-                cargarContenido(contenedor,'verJugadores/lateralDer', id);
-            } else if (datosFila[2].toLowerCase() == "lateral izquierdo"){
-                cargarContenido(contenedor,'verJugadores/lateralIzq', id);
-            } else if (datosFila[2].toLowerCase() == "mediapunta"){
-                cargarContenido(contenedor,'verJugadores/mediaPunta', id);
-            } else if (datosFila[2].toLowerCase() == "mediocentro ofensivo"){
-                cargarContenido(contenedor,'verJugadores/medioCampOf', id);
-            } else if (datosFila[2].toLowerCase() == "pivote"){
-                cargarContenido(contenedor,'verJugadores/pivote', id);
-            } else if (datosFila[2].toLowerCase() == "portero"){
-                cargarContenido(contenedor,'verJugadores/portero', id);
-            } else if (datosFila[2].toLowerCase() == "mediocentro"){
-                cargarContenido(contenedor,'verJugadores/medioCemp', id);
+            switch(datosFila[2].toLowerCase()) {
+                case "defensa central":
+                    cargarContenido(contenedor, 'verJugadores/defensa', String(id));
+                    break;
+                case "delantero centro":
+                    cargarContenido(contenedor, 'verJugadores/delantero', String(id));
+                    break;
+                case "extremo derecho":
+                    cargarContenido(contenedor, 'verJugadores/extremoDer', String(id));
+                    break;
+                case "extremo izquierdo":
+                    cargarContenido(contenedor, 'verJugadores/extremoIzq', String(id));
+                    break;
+                case "lateral derecho":
+                    cargarContenido(contenedor, 'verJugadores/lateralDer', String(id));
+                    break;
+                case "lateral izquierdo":
+                    cargarContenido(contenedor, 'verJugadores/lateralIzq', String(id));
+                    break;
+                case "mediapunta":
+                    cargarContenido(contenedor, 'verJugadores/mediaPunta', String(id));
+                    break;
+                case "mediocentro ofensivo":
+                    cargarContenido(contenedor, 'verJugadores/medioCampOf', String(id));
+                    break;
+                case "pivote":
+                    cargarContenido(contenedor, 'verJugadores/pivote', String(id));
+                    break;
+                case "portero":
+                    cargarContenido(contenedor, 'verJugadores/portero', String(id));
+                    break;
+                case "mediocentro":
+                    cargarContenido(contenedor, 'verJugadores/medioCemp', String(id));
+                    break;
+                default:
+                    console.error('Posición no reconocida:', datosFila[2]);
             }
+            
         }
     });
 });
