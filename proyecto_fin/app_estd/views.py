@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from bson import ObjectId
 from .models import jugadores_collection
 
@@ -125,3 +125,14 @@ def mediocentro(request):
     })
     print(f"jugador:{jugador}")
     return render(request, 'jd_mediocentro.html',{'jugador': jugador})
+
+
+def jugadorBuscar(request):
+    params = request.GET.get('id').split('&')
+    claves = ['Posicion', 'min', 'max', 'jugador', 'equipo']
+    dic = dict(zip(claves, params))
+    print(dic)
+    # falta hacer consulta en mongo
+    jugadores=list([])
+    
+    return render(request, "jugadores.html",{'jugadores': jugadores}) 

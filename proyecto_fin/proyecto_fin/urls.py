@@ -18,4 +18,5 @@ urlpatterns = [
     path('verJugadores/pivote/', views.pivote, name='pivote'),
     path('verJugadores/portero/', views.portero, name='portero'),
     path('verJugadores/medioCemp/', views.mediocentro, name='mediocentro'),
+    path('verJugadores/find/', views.jugadorBuscar, name='deft'),
 ]
