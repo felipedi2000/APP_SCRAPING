@@ -15,38 +15,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    const form = document.getElementById('jugadorBusquedaForm');
-
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            let nombre = document.getElementById('jugador').value;
-            let equipo = document.getElementById('equipo').value;
-            let posicion = document.getElementById('posicion').value;
-            let min = document.getElementById('precioDesde').value;
-            let max = document.getElementById('precioHasta').value;
-
-            if (nombre === 'Nombre jugador') {
-                nombre = '';
-            }
-            if (equipo === 'Elija un equipo') {
-                equipo = '';
-            }
-            if (posicion === 'Elija posición') {
-                posicion = '';
-            }
-            console.log(posicion, min, max, nombre, equipo);
-        });
-    }
-
-    function cargarContenido(contenedor, url, id) {
+    function cargarContenidoForm(contenedor, url, id) {
         var xhr = new XMLHttpRequest();
         let urlConMensaje = url + '?id=' + encodeURIComponent(id);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status == 200) {
                     contenedor.innerHTML = xhr.responseText;
-                    
+                    var header = document.querySelector('header');
+                    if (header) {
+                        header.remove();
+                    }
                 } else {
                     console.error('Error en la solicitud:', xhr.status);
                 }
@@ -55,7 +34,62 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.open('GET', urlConMensaje, true);
         xhr.send();
     }
+
+    const form = document.getElementById('jugadorBusquedaForm');
     
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Evitar envío por defecto del formulario
+
+            let contenedor = document.getElementById('bloqueMain');
+
+            let nombre = document.getElementById('jugador').value;
+            let equipo = document.getElementById('equipo').value;
+            let posicion = document.getElementById('posicion').value;
+            let min = document.getElementById('precioDesde').value;
+            let max = document.getElementById('precioHasta').value;
+            
+            if (nombre === '') {
+                nombre = '-';
+            }
+            if (equipo === 'Elija un equipo') {
+                equipo = '-';
+            }
+            if (posicion === 'Elija posición') {
+                posicion = '-';
+            }
+            if (min === ''){
+                min = 0;
+            }
+            if (max === ''){
+                max = 0;
+            }
+
+            let informacion = `${posicion}&${min}&${max}&${nombre}&${equipo}`;
+            console.log(informacion);
+            cargarContenidoForm(contenedor, 'verJugadores/find', informacion);
+            form.reset(); 
+        });
+    }
+    
+
+    function cargarContenido(contenedor, url, id) {
+        var xhr = new XMLHttpRequest();
+        let urlConMensaje = url + '?id=' + encodeURIComponent(id);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                if (xhr.status == 200) {
+                    contenedor.innerHTML = xhr.responseText;
+                } else {
+                    console.error('Error en la solicitud:', xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', urlConMensaje, true);
+        xhr.send();
+    }
+
+
     const tabla = document.getElementById('tablaJugadores');
     tabla.addEventListener('click', function(e){
         var fila = e.target.closest("tr");
