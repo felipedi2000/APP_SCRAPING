@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from bson import ObjectId
 from .models import jugadores_collection
-
+import re
 # Create your views here.
 def ver_home(request):
     return render(request,"home.html")
@@ -132,7 +132,35 @@ def jugadorBuscar(request):
     claves = ['Posicion', 'min', 'max', 'jugador', 'equipo']
     dic = dict(zip(claves, params))
     print(dic)
-    # falta hacer consulta en mongo
-    jugadores=list([])
-    
+    filtro = {}
+
+    # Filtro por equipo
+    if dic.get('equipo') and dic['equipo'] != '-':
+        filtro['team'] = dic['equipo']
+    print(filtro)
+    # Filtro por posición
+    if dic.get('Posicion') and dic['Posicion'] != '-':
+        filtro['Position'] = dic['Posicion']
+    print(filtro)
+    # Filtro por jugador
+    if dic.get('jugador') and dic['jugador'] != '-':
+        filtro['Name'] = {'$regex': re.escape(dic['jugador']),'$options': 'i'}
+    print(filtro)
+
+    if dic.get('min') and dic['min'].isdigit() and int(dic['min']) > 0:
+        filtro['MarketValue'] = {'$gte': int(dic['min'])}
+    print(filtro)
+
+    if dic.get('max') and dic['max'].isdigit() and int(dic['max']) > 0:
+    # Si ya existe un filtro de 'MarketValue', agregar el límite superior
+        if 'MarketValue' in filtro:
+            filtro['MarketValue']['$lte'] = int(dic['max'])
+        else:
+            filtro['MarketValue'] = {'$lte': int(dic['max'])}
+    print(filtro)
+
+    jugadores = list(jugadores_collection.find(filtro, {
+        "Name": 1, "Position": 1, "team": 1, "MarkeValue": 1, "Nationality": 1, "id": 1
+    }))
+
     return render(request, "jugadores.html",{'jugadores': jugadores}) 
